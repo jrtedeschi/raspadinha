@@ -5,12 +5,13 @@ import time
 import bs4 as bs4 
 import requests as rq
 import io
+import sys
 
 queries = ["pydata"]
 url = "https://www.youtube.com/results?search_query={query}&sp=CAI%253D&p={page}"
 
 for query in queries:
-    for page in range(1,100):
+    for page in range(1,10):
         urll = url.format(query=query, page=page)
         print(urll)
         response = rq.get(urll)
