@@ -7,11 +7,13 @@ import requests as rq
 import io
 import json
 
+path_pages = "C:/Users/joaor/Documents/Projetos/data/raspadinha/pages/"
+path_videos = "C:/Users/joaor/Documents/Projetos/data/raspadinha/videos/"
 queries = ["pydata"]
 
 for query in queries:
-    for page in range(1,27):
-        with io.open("./data/{}_{}.html".format(query,page), "r", encoding= "utf-8") as inp:
+    for page in range(1,10):
+        with io.open(path_pages+"{}_{}.html".format(query,page), "r", encoding= "utf-8") as inp:
             page_html = inp.read()
 
             parsed = bs4.BeautifulSoup(page_html)
@@ -22,10 +24,10 @@ for query in queries:
                 if e.has_attr("aria-describedby"):
                     link = e['href']
                     title = e['title']
-                    with io.open("parsed_videos.json","a+",encoding= "utf-8") as output:
+                    with io.open(path_videos+"parsed_videos.json","a+",encoding= "utf-8") as output:
                         data = {"link": link, "title": title, "query": query}
                         output.write("{}\n".format(json.dumps(data,ensure_ascii=False)))
 
-df = pd.read_json("parsed_videos.json", lines= True, encoding= "utf-8")
+df = pd.read_json(path_videos+"parsed_videos.json", lines= True, encoding= "utf-8")
 
 print(df.head())

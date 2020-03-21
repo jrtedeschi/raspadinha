@@ -16,6 +16,6 @@ for query in queries:
         print(urll)
         response = rq.get(urll)
 
-        with io.open("./data/{}_{}.html".format(query,page), "w",encoding="utf-8") as output:
+        with io.open("C:/Users/joaor/Documents/Projetos/data/raspadinha/pages/{}_{}.html".format(query,page), "w",encoding="utf-8") as output:
             output.write(response.text)
         time.sleep(1)
