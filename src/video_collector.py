@@ -6,15 +6,21 @@ import bs4 as bs4
 import requests as rq
 import io
 
-queries = ["pydata"]
-url = "https://www.youtube.com/results?search_query={query}&sp=CAI%253D&p={page}"
+path_videos = "C:/Users/joaor/Documents/Projetos/data/raspadinha/videos/"
 
-for query in queries:
-    for page in range(1,100):
-        urll = url.format(query=query, page=page)
-        print(urll)
-        response = rq.get(urll)
+df = pd.read_json(path_videos+"parsed_videos.json", lines= True, encoding= "utf-8")
 
-        with io.open("./data/{}_{}.html".format(query,page), "w",encoding="utf-8") as output:
-            output.write(response.text)
-        time.sleep(1)
+lista_links = df["link"].unique()
+
+url = "https://www.youtube.com{link}"
+
+for link in lista_links:
+    urll = url.format(link= link)
+    print(urll)
+    response = rq.get(urll)
+    nome_link = re.search("v=(.*)",link).group(1)
+
+
+    with io.open(path_videos+"video_{}.html".format(nome_link), "w",encoding="utf-8") as output:
+        output.write(response.text)
+    time.sleep(1)
