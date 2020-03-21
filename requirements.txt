@@ -22,3 +22,5 @@ scikit-learn
 scipy
 nbdime
 runipy
+pymongo
+dnspython
