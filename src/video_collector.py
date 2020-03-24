@@ -21,6 +21,6 @@ for link in lista_links:
     nome_link = re.search("v=(.*)",link).group(1)
 
 
-    with io.open(path_videos+"video_{}.html".format(nome_link), "w",encoding="utf-8") as output:
+    with io.open(path_videos+"video_{}.html".format(nome_link), "w",encoding="utf-8") as output: #escrevendo a pagina em texto
         output.write(response.text)
     time.sleep(1)

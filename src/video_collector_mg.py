@@ -58,5 +58,5 @@ for link in tqdm.tqdm(lista_de_links, leave=False):
 #     db.videos_info.insert_many(data)
 print('finished creating {0} documents'.format(i))
 
-pprint.pprint(db.videos_info.find_one().pretty())
+pprint.pprint(db.videos_info.find_one())
 # pprint.pprint(db.videos_info.find_one())

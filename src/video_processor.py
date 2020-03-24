@@ -26,4 +26,4 @@ df = pd.DataFrame(list(videos_info.find()))
 
 base = df[colunas_selecionadas]
 
-print(base.head())
+print(base.info())

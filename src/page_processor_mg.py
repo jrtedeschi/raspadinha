@@ -15,7 +15,8 @@ db.drop_collection(name_or_collection= "videos")
 
 path_pages = "C:/Users/joaor/Documents/Projetos/data/raspadinha/pages/"
 
-queries = ["pydata"]
+queries = ["pydata","NLP","machine+learning","docker","scrapy","mongodb","markov","active+learning","jenkins","tensorflow","kubernetes"]
+
 i = 0
 for query in queries:
     for page in range(1,10):
@@ -38,4 +39,6 @@ for query in queries:
 print('finished creating {0} documents'.format(i))
 
 pprint.pprint(db.videos.find_one())
+
+
 

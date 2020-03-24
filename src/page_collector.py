@@ -7,15 +7,15 @@ import requests as rq
 import io
 import sys
 
-queries = ["pydata"]
+queries = ["pydata","NLP","machine+learning","docker","scrapy","mongodb","markov","active+learning","jenkins","tensorflow","kubernetes"]
 url = "https://www.youtube.com/results?search_query={query}&sp=CAI%253D&p={page}"
 
 for query in queries:
-    for page in range(1,10):
+    for page in range(1,15):
         urll = url.format(query=query, page=page)
         print(urll)
         response = rq.get(urll)
 
         with io.open("C:/Users/joaor/Documents/Projetos/data/raspadinha/pages/{}_{}.html".format(query,page), "w",encoding="utf-8") as output:
             output.write(response.text)
-        time.sleep(1)
+        time.sleep(0.1)
