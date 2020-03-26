@@ -9,6 +9,7 @@ from pymongo import MongoClient
 import json
 import tqdm
 
+time1 = time.time()
 
 client = MongoClient("mongodb+srv://jrtedeschi:anaclaravpa10!@cluster0-ndlxt.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client.scraper
@@ -26,4 +27,10 @@ df = pd.DataFrame(list(videos_info.find()))
 
 base = df[colunas_selecionadas]
 
-print(base.info())
+base.to_csv('C:/Users/joaor/Documents/Projetos/data/raspadinha/videos_to_label.csv', 
+                                        sep=";",
+                                        encoding= "utf-8-sig"
+                                        )
+
+time2 = time.time() - time1
+print("Feito em: {} minutos".format(np.round(time2/60, decimals=2)))
