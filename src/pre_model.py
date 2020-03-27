@@ -22,8 +22,10 @@ print(df.shape)
 df_limpo = pd.DataFrame(index=df.index)
 
 clean_date = df['watch-time-text'].str.extract(r"(\d+) de ([a-z]+)\. de (\d+)")
-clean_date[0] = clean_date[0].map(lambda x: "0"+x[0] if len(x) == 1 else x)
+clean_date[0] = clean_date[0].map(lambda x: "0"+str(x[0]) if len(str(x)) == 1 else str(x))
 #clean_date[1] = clean_date[1].map(lambda x: x[0].upper()+x[1:])
+clean_date[2] = clean_date[2].astype('str')
+
 
 mapa_meses = {"jan": "Jan",
               "fev": "Feb",
@@ -34,15 +36,21 @@ mapa_meses = {"jan": "Jan",
               "jul": "Jul",
               "ago": "Aug", 
               "set": "Sep", 
-              "nov": "Nov",
               "out": "Oct", 
+              "nov": "Nov",
               "dez": "Dec"}
 
 clean_date[1] = clean_date[1].map(mapa_meses)
+clean_date = clean_date.dropna()
 
-clean_date = clean_date.apply(lambda x: " ".join(x), axis=1)
 
-df_limpo['date'] = pd.to_datetime(clean_date, format="%d %b %Y")
+
+
+clean_date = clean_date.apply(lambda x: " ".join(x.dropna()), axis=1)
+
+print("xura",clean_date)
+
+df_limpo['date'] = pd.to_datetime(clean_date.dropna(), format="%d %b %Y")
 
 views = df['watch-view-count'].str.extract(r"(\d+\.?\d*)", expand=False).str.replace(".", "").fillna(0).astype(int)
 df_limpo['views'] = views
@@ -55,4 +63,4 @@ features['views'] = df_limpo['views']
 features['views_por_dia'] = features['views'] / features['tempo_desde_pub']
 features = features.drop(['tempo_desde_pub'], axis=1)
 
-print(features.head())
+print(features)
