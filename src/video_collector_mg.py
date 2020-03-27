@@ -24,7 +24,6 @@ lista_de_links = df["link"].unique()
 i = 0
 for link in tqdm.tqdm(lista_de_links, leave=False):
     urll = url.format(link=link)
-    print(urll)
     response = rq.get(urll)
     parsed = bs4.BeautifulSoup(response.text, 'html.parser')
 
@@ -53,7 +52,7 @@ for link in tqdm.tqdm(lista_de_links, leave=False):
         
     result = db.videos_info.insert_one(data)
     i += 1
-    print('Created doc {0} as {1}'.format(i,result.inserted_id))
+
 
 #     db.videos_info.insert_many(data)
 print('finished creating {0} documents'.format(i))

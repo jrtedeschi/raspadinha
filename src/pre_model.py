@@ -46,3 +46,13 @@ df_limpo['date'] = pd.to_datetime(clean_date, format="%d %b %Y")
 
 views = df['watch-view-count'].str.extract(r"(\d+\.?\d*)", expand=False).str.replace(".", "").fillna(0).astype(int)
 df_limpo['views'] = views
+
+features = pd.DataFrame(index=df_limpo.index)
+y = df['Y'].copy()
+
+features['tempo_desde_pub'] = (pd.to_datetime("2019-12-03") - df_limpo['date']) / np.timedelta64(1, 'D')
+features['views'] = df_limpo['views']
+features['views_por_dia'] = features['views'] / features['tempo_desde_pub']
+features = features.drop(['tempo_desde_pub'], axis=1)
+
+print(features.head())
